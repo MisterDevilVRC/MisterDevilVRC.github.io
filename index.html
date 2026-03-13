@@ -3,184 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MisterDevilVRC | Project Development</title>
+    <title>MisterDevilVRC | Dev Portal</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syncopate:wght@700&display=swap');
+
         :root {
-            --bg: #0f172a; /* Deep Slate */
-            --card-bg: #1e293b;
-            --accent: #38bdf8; /* VRChat-style Cyan */
-            --text-main: #f1f5f9;
-            --text-dim: #94a3b8;
-            --success: #22c55e;
+            --neon-blue: #00f2ff;
+            --neon-purple: #bc13fe;
+            --dark-space: #050505;
+            --grid-color: rgba(0, 242, 255, 0.05);
         }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            line-height: 1.6;
+            background-color: var(--dark-space);
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+                              linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: #e0e0e0;
+            font-family: 'Space Mono', monospace;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            padding: 2rem 1rem;
+            padding: 20px;
         }
 
-        .container {
-            max-width: 800px;
-            width: 100%;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        h1 {
-            font-size: 2rem;
-            letter-spacing: -0.05em;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .status-badge {
-            background: rgba(56, 189, 248, 0.1);
-            color: var(--accent);
-            padding: 0.5rem 1rem;
-            border-radius: 99px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            border: 1px solid var(--accent);
-        }
-
-        section {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            margin-top: 0;
-            border-left: 4px solid var(--accent);
-            padding-left: 1rem;
-        }
-
-        p, li {
-            color: var(--text-dim);
-        }
-
-        ul { padding-left: 1.2rem; }
-        li { margin-bottom: 0.75rem; }
-
-        /* Progress Bar Styling */
-        .progress-container {
-            margin-top: 1rem;
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .progress-bar-bg {
-            background: #334155;
-            height: 12px;
-            border-radius: 6px;
+        .terminal-window {
+            max-width: 900px;
+            margin: 40px auto;
+            border: 2px solid #333;
+            background: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border-radius: 8px;
             overflow: hidden;
         }
 
-        .progress-fill {
-            background: var(--accent);
-            height: 100%;
-            transition: width 1s ease-in-out;
+        .title-bar {
+            background: #1a1a1a;
+            padding: 10px 20px;
+            border-bottom: 2px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .code-snippet {
-            background: #000;
-            padding: 1rem;
-            border-radius: 6px;
-            font-family: monospace;
-            color: #d1d5db;
-            font-size: 0.9rem;
+        .dot-container { display: flex; gap: 8px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; background: #333; }
+        .dot.red { background: #ff5f56; }
+
+        .content { padding: 40px; }
+
+        h1 {
+            font-family: 'Syncopate', sans-serif;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
         }
 
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            font-size: 0.8rem;
-            color: var(--text-dim);
+        .glitch-text { color: var(--neon-purple); font-weight: bold; }
+
+        h2 {
+            color: var(--neon-blue);
+            font-size: 1rem;
+            border-bottom: 1px solid var(--neon-blue);
+            display: inline-block;
+            margin-bottom: 20px;
         }
+
+        .step-box {
+            border: 1px solid #333;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: rgba(255,255,255,0.02);
+            transition: 0.3s;
+        }
+
+        .step-box:hover {
+            border-color: var(--neon-purple);
+            background: rgba(188, 19, 254, 0.05);
+        }
+
+        .progress-wrap { margin: 30px 0; }
+        .bar-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.8rem; }
+        
+        .bar-outer { height: 10px; background: #222; border-radius: 5px; }
+        .bar-inner { height: 100%; border-radius: 5px; box-shadow: 0 0 10px var(--neon-blue); }
+
+        .status-active { color: #00ff41; text-transform: uppercase; font-size: 0.8rem; }
+
+        footer { text-align: center; font-size: 0.7rem; color: #666; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>MisterDevilVRC.github.io</h1>
-        <span class="status-badge">Project Under Development</span>
-    </header>
-
-    <section>
-        <h2>The Goal</h2>
-        <p>
-            An asset for VRChat world makers to easily integrate YouTube playlists. This project eliminates the need for players to alt-tab to browsers or copy-paste links manually. 
-            Stay updated with the latest content from multiple channels without the clutter of years-old search results.
-        </p>
-    </section>
-
-    <section>
-        <h2>How It Works</h2>
-        <ul>
-            <li><strong>Configuration:</strong> Provide your YouTube API Key, GitHub Key, and Target Channel IDs.</li>
-            <li><strong>Data Pull:</strong> A Python script fetches the 50 most recent videos per channel.</li>
-            <li><strong>Sorting:</strong> Results are mixed and chronologically sorted by upload date.</li>
-            <li><strong>Sync:</strong> The list is pushed to a <strong>GitHub Gist</strong> (or Pastes.io) via API.</li>
-            <li><strong>Udon Prefab:</strong> Place the prefab in your Unity world and link it to the raw Gist data.</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Project Progress</h2>
-        
-        <div class="progress-container">
-            <div class="progress-label">
-                <span>Python Backend (Data Processing)</span>
-                <span>100%</span>
+    <div class="terminal-window">
+        <div class="title-bar">
+            <div class="dot-container">
+                <div class="dot red"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
             </div>
-            <div class="progress-bar-bg">
-                <div class="progress-fill" style="width: 100%; background: var(--success);"></div>
-            </div>
+            <div style="font-size: 0.7rem; color: #666;">SESSION: MISTERDEVIL_VRC_CORE</div>
         </div>
 
-        <div class="progress-container" style="margin-top: 2rem;">
-            <div class="progress-label">
-                <span>Udon Prefab / Unity UI</span>
-                <span>10%</span>
-            </div>
-            <div class="progress-bar-bg">
-                <div class="progress-fill" style="width: 10%;"></div>
-            </div>
-            <p style="font-size: 0.85rem; margin-top: 10px;">
-                <em>Current Status: Text is readable in-world, but clickable interaction for links is still in development.</em>
-            </p>
-        </div>
-    </section>
+        <div class="content">
+            <header>
+                <h1>MisterDevilVRC.io</h1>
+                <p class="glitch-text">> INITIALIZING WORLD-ASSET_DEVELOPMENT...</p>
+            </header>
 
-    <section>
-        <h2>The Motivation</h2>
-        <blockquote>
-            "I watch a lot of funny videos in VRChat with PC and Quest friends. It’s annoying to tab out, and Quest friends can't easily copy links. I wanted a way to just press 'Play' on the latest content without leaving the game."
-        </blockquote>
-    </section>
+            <section>
+                <h2>[01] THE GOAL</h2>
+                <p>Creating a seamless YouTube integration for VRChat World Makers. No more tabbing out. No more outdated search results. Just pure content synchronization for you and your friends.</p>
+            </section>
+
+            <section>
+                <h2>[02] SYSTEM ARCHITECTURE</h2>
+                <div class="step-box">
+                    <strong>Phase A:</strong> Python logic pulls 50 latest videos per channel via YouTube API.
+                </div>
+                <div class="step-box">
+                    <strong>Phase B:</strong> Compiled data is pushed to GitHub Gist/API.
+                </div>
+                <div class="step-box">
+                    <strong>Phase C:</strong> Udon Prefab fetches raw data and generates interactive in-world buttons.
+                </div>
+            </section>
+
+            <section class="progress-wrap">
+                <h2>[03] BUILD STATUS</h2>
+                
+                <div class="bar-label"><span>PYTHON BACKEND</span> <span>100%</span></div>
+                <div class="bar-outer"><div class="bar-inner" style="width: 100%; background: var(--neon-blue);"></div></div>
+
+                <div style="margin-top: 20px;" class="bar-label"><span>UDON PREFAB</span> <span>10%</span></div>
+                <div class="bar-outer"><div class="bar-inner" style="width: 10%; background: var(--neon-purple);"></div></div>
+            </section>
+
+            <section>
+                <h2>[04] DEV LOG</h2>
+                <p style="font-size: 0.9rem; font-style: italic; color: #888;">
+                    "Quest friends can't copy links easily. This project fixes that. Working on making Unity UI text clickable for dynamic video loading."
+                </p>
+            </section>
+        </div>
+    </div>
 
     <footer>
-        &copy; 2026 MisterDevilVRC | Built for the VRChat Community
+        DEVOLOPED BY MISTERDEVILVRC // 2026 // END OF LINE.
     </footer>
-</div>
 
 </body>
 </html>
