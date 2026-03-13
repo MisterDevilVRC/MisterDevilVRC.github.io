@@ -3,154 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MisterDevilVRC | Dev Portal</title>
+    <title>MisterDevilVRC | Project Dashboard</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syncopate:wght@700&display=swap');
-
         :root {
-            --neon-blue: #00f2ff;
-            --neon-purple: #bc13fe;
-            --dark-space: #050505;
-            --grid-color: rgba(0, 242, 255, 0.05);
+            --bg-app: #121212;
+            --bg-sidebar: #181818;
+            --bg-content: #1e1e1e;
+            --border: #333333;
+            --accent: #0078d4; /* Professional Blue */
+            --text-main: #e1e1e1;
+            --text-dim: #999999;
+            --success: #4ec9b0;
         }
 
         body {
-            background-color: var(--dark-space);
-            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-                              linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 30px 30px;
-            color: #e0e0e0;
-            font-family: 'Space Mono', monospace;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-app);
+            color: var(--text-main);
             margin: 0;
-            padding: 20px;
-        }
-
-        .terminal-window {
-            max-width: 900px;
-            margin: 40px auto;
-            border: 2px solid #333;
-            background: rgba(10, 10, 10, 0.95);
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            border-radius: 8px;
+            display: flex;
+            height: 100vh;
             overflow: hidden;
         }
 
-        .title-bar {
-            background: #1a1a1a;
+        /* Sidebar Navigation */
+        aside {
+            width: 240px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            flex-shrink: 0;
+        }
+
+        .sidebar-brand {
+            padding: 0 20px 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav a {
             padding: 10px 20px;
-            border-bottom: 2px solid #333;
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            display: block;
+            transition: 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            background: #2a2a2a;
+            color: white;
+        }
+
+        /* Main Content Area */
+        main {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* App Title Bar */
+        .title-bar {
+            padding: 15px 30px;
+            background: var(--bg-content);
+            border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .dot-container { display: flex; gap: 8px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; background: #333; }
-        .dot.red { background: #ff5f56; }
-
-        .content { padding: 40px; }
-
-        h1 {
-            font-family: 'Syncopate', sans-serif;
-            text-transform: uppercase;
-            font-size: 1.5rem;
-            color: var(--neon-blue);
-            margin: 0 0 10px 0;
-            text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+        .status-pill {
+            font-size: 0.75rem;
+            background: rgba(0, 120, 212, 0.1);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 4px;
+            border: 1px solid var(--accent);
         }
 
-        .glitch-text { color: var(--neon-purple); font-weight: bold; }
+        .content-body {
+            padding: 40px;
+            max-width: 900px;
+        }
 
-        h2 {
-            color: var(--neon-blue);
-            font-size: 1rem;
-            border-bottom: 1px solid var(--neon-blue);
-            display: inline-block;
+        h1 { font-size: 1.8rem; margin: 0 0 10px; }
+        h2 { font-size: 1.2rem; color: var(--accent); margin-top: 2rem; }
+
+        .card {
+            background: #252526;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
             margin-bottom: 20px;
         }
 
-        .step-box {
-            border: 1px solid #333;
-            padding: 15px;
-            margin-bottom: 15px;
-            background: rgba(255,255,255,0.02);
-            transition: 0.3s;
-        }
-
-        .step-box:hover {
-            border-color: var(--neon-purple);
-            background: rgba(188, 19, 254, 0.05);
-        }
-
-        .progress-wrap { margin: 30px 0; }
-        .bar-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.8rem; }
+        /* Progress List */
+        .progress-item { margin-bottom: 20px; }
+        .progress-meta { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; }
         
-        .bar-outer { height: 10px; background: #222; border-radius: 5px; }
-        .bar-inner { height: 100%; border-radius: 5px; box-shadow: 0 0 10px var(--neon-blue); }
+        .progress-track {
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            overflow: hidden;
+        }
 
-        .status-active { color: #00ff41; text-transform: uppercase; font-size: 0.8rem; }
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+        }
 
-        footer { text-align: center; font-size: 0.7rem; color: #666; margin-top: 40px; }
+        footer {
+            margin-top: auto;
+            padding: 15px 30px;
+            background: var(--bg-sidebar);
+            border-top: 1px solid var(--border);
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        blockquote {
+            border-left: 3px solid var(--accent);
+            margin: 0;
+            padding-left: 20px;
+            font-style: italic;
+            color: var(--text-dim);
+        }
     </style>
 </head>
 <body>
 
-    <div class="terminal-window">
+    <aside>
+        <div class="sidebar-brand">Project Repo</div>
+        <nav>
+            <a href="index.html" class="active">Overview</a>
+            <a href="#">Setup Guide</a>
+            <a href="#">Python Source</a>
+            <a href="#">Udon Prefab</a>
+        </nav>
+    </aside>
+
+    <main>
         <div class="title-bar">
-            <div class="dot-container">
-                <div class="dot red"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+            <span>Project / <strong>MisterDevilVRC.github.io</strong></span>
+            <span class="status-pill">Dev Mode</span>
+        </div>
+
+        <div class="content-body">
+            <h1>YouTube Sync for VRChat</h1>
+            <p style="color: var(--text-dim);">Eliminating the browser-tab workflow for Quest and PC world-makers.</p>
+
+            <div class="card">
+                <h2>The Goal</h2>
+                <p>Allow VRChat friends to watch the latest content from curated YouTube channels without ever leaving the world. By bypassing traditional search, we ensure the list is always fresh and updated via a backend automation script.</p>
             </div>
-            <div style="font-size: 0.7rem; color: #666;">SESSION: MISTERDEVIL_VRC_CORE</div>
+
+            <div class="card">
+                <h2>Workflow</h2>
+                <p>1. <strong>Python:</strong> Fetches 50 videos per channel & sorts by date.<br>
+                   2. <strong>Gist API:</strong> Compiles and posts raw data links.<br>
+                   3. <strong>Udon:</strong> Fetches data in-game and renders interactive buttons.</p>
+            </div>
+
+            <h2>Build Status</h2>
+            <div class="progress-item">
+                <div class="progress-meta"><span>Python Logic</span> <span>100%</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width: 100%; background: var(--success);"></div></div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-meta"><span>Udon Integration</span> <span>10%</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width: 10%;"></div></div>
+            </div>
+
+            <h2>Project Vision</h2>
+            <blockquote>
+                "Quest friends complain about link copying—it's frustrating. This project is about making shared viewing as easy as pressing a single button inside the world."
+            </blockquote>
         </div>
 
-        <div class="content">
-            <header>
-                <h1>MisterDevilVRC.io</h1>
-                <p class="glitch-text">> INITIALIZING WORLD-ASSET_DEVELOPMENT...</p>
-            </header>
-
-            <section>
-                <h2>[01] THE GOAL</h2>
-                <p>Creating a seamless YouTube integration for VRChat World Makers. No more tabbing out. No more outdated search results. Just pure content synchronization for you and your friends.</p>
-            </section>
-
-            <section>
-                <h2>[02] SYSTEM ARCHITECTURE</h2>
-                <div class="step-box">
-                    <strong>Phase A:</strong> Python logic pulls 50 latest videos per channel via YouTube API.
-                </div>
-                <div class="step-box">
-                    <strong>Phase B:</strong> Compiled data is pushed to GitHub Gist/API.
-                </div>
-                <div class="step-box">
-                    <strong>Phase C:</strong> Udon Prefab fetches raw data and generates interactive in-world buttons.
-                </div>
-            </section>
-
-            <section class="progress-wrap">
-                <h2>[03] BUILD STATUS</h2>
-                
-                <div class="bar-label"><span>PYTHON BACKEND</span> <span>100%</span></div>
-                <div class="bar-outer"><div class="bar-inner" style="width: 100%; background: var(--neon-blue);"></div></div>
-
-                <div style="margin-top: 20px;" class="bar-label"><span>UDON PREFAB</span> <span>10%</span></div>
-                <div class="bar-outer"><div class="bar-inner" style="width: 10%; background: var(--neon-purple);"></div></div>
-            </section>
-
-            <section>
-                <h2>[04] DEV LOG</h2>
-                <p style="font-size: 0.9rem; font-style: italic; color: #888;">
-                    "Quest friends can't copy links easily. This project fixes that. Working on making Unity UI text clickable for dynamic video loading."
-                </p>
-            </section>
-        </div>
-    </div>
-
-    <footer>
-        DEVOLOPED BY MISTERDEVILVRC // 2026 // END OF LINE.
-    </footer>
+        <footer>
+            <span>v1.0.4-alpha</span>
+            <span>&copy; 2026 MisterDevilVRC</span>
+        </footer>
+    </main>
 
 </body>
 </html>
