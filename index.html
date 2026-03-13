@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MisterDevilVRC | Project Dashboard</title>
+    <title>MisterDevilVRC | Dashboard</title>
     <style>
         :root {
-            --bg-app: #121212;
-            --bg-sidebar: #181818;
-            --bg-content: #1e1e1e;
-            --border: #333333;
-            --accent: #0078d4; /* Professional Blue */
-            --text-main: #e1e1e1;
-            --text-dim: #999999;
-            --success: #4ec9b0;
+            --bg-app: #0f1115;
+            --bg-sidebar: #16191f;
+            --bg-card: #1c2128;
+            --border: #2d333b;
+            --accent: #38bdf8; 
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --text-main: #f0f6fc;
+            --text-dim: #8b949e;
+            --success: #238636;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-app);
             color: var(--text-main);
             margin: 0;
@@ -26,129 +27,164 @@
             overflow: hidden;
         }
 
-        /* Sidebar Navigation */
+        /* Modern Sidebar with Glass feel */
         aside {
-            width: 240px;
+            width: 260px;
             background-color: var(--bg-sidebar);
             border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            padding: 20px 0;
+            padding: 30px 0;
             flex-shrink: 0;
         }
 
         .sidebar-brand {
-            padding: 0 20px 20px;
-            font-weight: bold;
-            font-size: 0.9rem;
+            padding: 0 25px 30px;
+            font-weight: 800;
+            font-size: 0.85rem;
             color: var(--accent);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         nav a {
-            padding: 10px 20px;
+            padding: 12px 25px;
             text-decoration: none;
             color: var(--text-dim);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             display: block;
-            transition: 0.2s;
+            margin: 4px 15px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
         }
 
-        nav a:hover, nav a.active {
-            background: #2a2a2a;
+        nav a:hover {
+            background: rgba(255,255,255,0.05);
             color: white;
+            padding-left: 30px;
         }
 
-        /* Main Content Area */
+        nav a.active {
+            background: var(--accent);
+            color: #000;
+            font-weight: 600;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
         main {
             flex-grow: 1;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
+            background: radial-gradient(circle at top right, #1a1d23, #0f1115);
         }
 
-        /* App Title Bar */
         .title-bar {
-            padding: 15px 30px;
-            background: var(--bg-content);
+            padding: 20px 40px;
+            background: rgba(22, 25, 31, 0.8);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         .status-pill {
-            font-size: 0.75rem;
-            background: rgba(0, 120, 212, 0.1);
-            color: var(--accent);
-            padding: 4px 12px;
-            border-radius: 4px;
-            border: 1px solid var(--accent);
+            font-size: 0.7rem;
+            background: var(--success);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
         .content-body {
-            padding: 40px;
-            max-width: 900px;
+            padding: 50px 80px;
+            max-width: 1000px;
         }
 
-        h1 { font-size: 1.8rem; margin: 0 0 10px; }
+        h1 { font-size: 2.5rem; font-weight: 800; margin: 0 0 10px; letter-spacing: -1px; }
+        
+        /* Fixed Header Margin issues */
         h2 { 
-             font-size: 1.2rem; 
-             color: var(--accent); 
-             margin-top: 0;         /* Removes the 'Enter' space at the top */
-             margin-bottom: 12px;   /* Keeps a clean gap between title and text */
-           }
+            font-size: 1.1rem; 
+            color: var(--accent); 
+            margin: 0 0 12px 0; /* Zero top margin */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
         .card {
-            background: #252526;
+            background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 20px;
-            margin-bottom: 20px;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
 
-        /* Progress List */
-        .progress-item { margin-bottom: 20px; }
-        .progress-meta { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #444;
+        }
+
+        /* Refined Progress Bars */
+        .progress-item { margin-bottom: 25px; }
+        .progress-meta { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; font-weight: 500; }
         
         .progress-track {
-            height: 6px;
-            background: #333;
-            border-radius: 3px;
+            height: 10px;
+            background: #121418;
+            border-radius: 10px;
             overflow: hidden;
+            border: 1px solid var(--border);
         }
 
         .progress-fill {
             height: 100%;
-            background: var(--accent);
-            border-radius: 3px;
+            background: linear-gradient(90deg, var(--accent), #7dd3fc);
+            border-radius: 10px;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        blockquote {
+            background: rgba(56, 189, 248, 0.03);
+            border-left: 4px solid var(--accent);
+            margin: 40px 0;
+            padding: 25px 30px;
+            border-radius: 0 16px 16px 0;
+            font-style: italic;
+            color: var(--text-main);
+            line-height: 1.8;
         }
 
         footer {
             margin-top: auto;
-            padding: 15px 30px;
+            padding: 20px 40px;
             background: var(--bg-sidebar);
             border-top: 1px solid var(--border);
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--text-dim);
             display: flex;
             justify-content: space-between;
-        }
-
-        blockquote {
-            border-left: 3px solid var(--accent);
-            margin: 0;
-            padding-left: 20px;
-            font-style: italic;
-            color: var(--text-dim);
         }
     </style>
 </head>
 <body>
 
     <aside>
-        <div class="sidebar-brand">Project Repo</div>
+        <div class="sidebar-brand">
+            <div style="width:12px; height:12px; background:var(--accent); border-radius:3px;"></div>
+            MisterDevilVRC
+        </div>
         <nav>
             <a href="index.html" class="active">Overview</a>
             <a href="#">Setup Guide</a>
@@ -159,13 +195,13 @@
 
     <main>
         <div class="title-bar">
-            <span>Project / <strong>MisterDevilVRC.github.io</strong></span>
-            <span class="status-pill">Dev Mode</span>
+            <span style="color: var(--text-dim);">Repository / <strong style="color: white;">YouTube-Sync</strong></span>
+            <span class="status-pill">Active Build</span>
         </div>
 
         <div class="content-body">
-            <h1>YouTube Sync for VRChat</h1>
-            <p style="color: var(--text-dim);">Eliminating the browser-tab workflow for Quest and PC world-makers.</p>
+            <h1>Project Development</h1>
+            <p style="color: var(--text-dim); font-size: 1.1rem; margin-bottom: 40px;">Optimized content synchronization for VRChat worlds.</p>
 
             <div class="card">
                 <h2>The Goal</h2>
@@ -174,31 +210,34 @@
 
             <div class="card">
                 <h2>Workflow</h2>
-                <p>1. <strong>Python:</strong> Fetches 50 videos per channel & sorts by date.<br>
-                   2. <strong>Gist API:</strong> Compiles and posts raw data links.<br>
-                   3. <strong>Udon:</strong> Fetches data in-game and renders interactive buttons.</p>
+                <p style="line-height: 2;">
+                   • <strong>Python:</strong> Automation logic for API data fetching.<br>
+                   • <strong>Gist API:</strong> Secure cloud hosting for video metadata.<br>
+                   • <strong>Udon:</strong> Real-time in-world data parsing and UI generation.
+                </p>
             </div>
 
-            <h2>Build Status</h2>
-            <div class="progress-item">
-                <div class="progress-meta"><span>Python Logic</span> <span>100%</span></div>
-                <div class="progress-track"><div class="progress-fill" style="width: 100%; background: var(--success);"></div></div>
+            <div style="margin-top: 50px;">
+                <h2>System Health & Progress</h2>
+                <div class="progress-item">
+                    <div class="progress-meta"><span>Python Logic</span> <span>100%</span></div>
+                    <div class="progress-track"><div class="progress-fill" style="width: 100%;"></div></div>
+                </div>
+
+                <div class="progress-item">
+                    <div class="progress-meta"><span>Udon Integration</span> <span>10%</span></div>
+                    <div class="progress-track"><div class="progress-fill" style="width: 10%;"></div></div>
+                </div>
             </div>
 
-            <div class="progress-item">
-                <div class="progress-meta"><span>Udon Integration</span> <span>10%</span></div>
-                <div class="progress-track"><div class="progress-fill" style="width: 10%;"></div></div>
-            </div>
-
-            <h2>Project Vision</h2>
             <blockquote>
                 "Quest friends complain about link copying—it's frustrating. This project is about making shared viewing as easy as pressing a single button inside the world."
             </blockquote>
         </div>
 
         <footer>
-            <span>v1.0.4-alpha</span>
-            <span>&copy; 2026 MisterDevilVRC</span>
+            <span>v1.0.4-stable-alpha</span>
+            <span>Created by MisterDevilVRC &copy; 2026</span>
         </footer>
     </main>
 
