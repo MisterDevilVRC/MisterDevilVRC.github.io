@@ -1,4 +1,4 @@
-# thingey.github.io
+# MisterDevilVRC.github.io
 
 Project under development...
 
